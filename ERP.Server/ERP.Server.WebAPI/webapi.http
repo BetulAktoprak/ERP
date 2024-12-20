@@ -1,0 +1,7 @@
+# For more info on HTTP files go to https://aka.ms/vs/httpfile
+GET http://localhost:5031/api/PrescriptionDetails/GetAll?prescriptionId=cda8c9a8-71c1-4ccb-bb32-1fc06e6215c7
+Authorization: bearer eyJhbGciOiJIUzUxMiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI3MWJiODc2Zi00MTI5LTRlNTctOGEyMS0wOGFjMGEyODM2ZmIiLCJmdWxsTmFtZSI6IlRhbmVyIFNheWRhbSIsImVtYWlsIjoidGFuZXJzYXlkYW1AZ21haWwuY29tIiwibmJmIjoxNzI3ODkzMjY3LCJleHAiOjE3MzA1NzE2NjcsImlzcyI6IlRhbmVyIFNheWRhbSIsImF1ZCI6Imh0dHBzOi8vd3d3LnRhbmVyc2F5ZGFtLm5ldCJ9.VRdalTix9apBeDBuUaIpfoUGjnTWt2RI_cbxw3bjauJsBd4RzoNcKRb9Jghv7Y8nDyVDzPRbLptfIVMqhmjuCQ
+
+###
+
+22:05 görüþelim

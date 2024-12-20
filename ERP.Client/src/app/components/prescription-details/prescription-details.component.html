@@ -1,0 +1,70 @@
+<app-blank pageName="Reçeteler" [routes]="['Ana Sayfa','Reçeteler']">
+
+    <app-section>
+        <div style="display: flex; gap: 10px;">
+            <div class="form-group" style="width: 100%;">
+                <label>Ürün Adı</label>
+                <flexi-select
+                  [data]="products()"
+                  name="productId"
+                  [(ngModel)]="createModel().productId"
+                  label="name"
+                  value="id"
+                  [tabindex]="0"
+                  (selected)="setProduct($event)"
+                  #productSelect
+                   />
+            </div>
+
+            <div class="form-group" style="width: 150px;">
+                <label>Adet</label>
+                <input type="number" class="form-control" name="quantity" [(ngModel)]="createModel().quantity" tabindex="1" />
+            </div>
+
+            <div class="form-group" style="width: 100%;">
+                <label>İşlemler</label>
+                <div>
+                    <button class="btn btn-primary" (click)="create()" tabindex="2">
+                        <i class="fa-solid fa-plus"></i>
+                        Ekle
+                    </button>
+                </div>
+            </div>
+        </div>
+    </app-section>
+
+    <app-section sectionTitle="Reçete Listesi">               
+        <div class="form-group mt-2">
+           <flexi-grid
+           [data]="data().details"
+           [pageable]="true"
+           [sortable]="true"
+           [filterable]="true"
+           [showIndex]="true"
+           [showCaption]="true"
+           [pageSize]="10"
+           captionTitle="Reçete listesi"
+           indexWidth="3%"
+           fontSize="17px"
+           [loading]="loading()"
+           [showCommandColumn]="true"
+           [commandColumnTemplate]="commandTemplate"
+           commandColumnWidth="7%"
+           indexWidth="7%"
+           [showRefreshBtn]="true"
+           [showExportExcelBtn]="false"
+           (refreshBtnClick)="get()"
+           >
+           <flexi-grid-column field="productName" title="Ürün Adı" width="66%"></flexi-grid-column>
+           <flexi-grid-column field="quantity" title="Miktar" width="20%"></flexi-grid-column>
+
+           <ng-template #commandTemplate let-item>
+            <flexi-button btnColor="danger" (click)="delete(item)">
+                <i class="fa-solid fa-trash"></i>
+            </flexi-button>
+           </ng-template>
+
+           </flexi-grid>
+        </div>
+    </app-section>
+</app-blank>

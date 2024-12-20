@@ -1,0 +1,38 @@
+trigger:
+  - main
+
+pool:
+  name: Default
+
+variables:
+  buildConfiguration: 'Release'
+  nugetVersion: '6.5.0' # Kullanmak istediğiniz NuGet sürümünü belirtin
+
+steps:
+  - task: UseDotNet@2
+    displayName: 'Install .NET Core SDK'
+    inputs:
+      version: '8.x'
+      performMultiLevelLookup: true
+      includePreviewVersions: true # Önizleme sürümleri için gerekli
+
+  - task: DotNetCoreCLI@2
+    displayName: restore
+    inputs:
+      command: 'restore'
+      feedsToUse: 'select'
+      vstsFeed: 'bc200a3b-254a-42bc-9612-aaa95975ebae'
+
+  - task: DotNetCoreCLI@2
+    displayName: build
+    inputs:
+      command: 'build'
+      arguments: '--configuration $(buildConfiguration)'
+  
+  - task: DotNetCoreCLI@2
+    displayName: publish
+    inputs:
+      command: 'publish'
+      publishWebProjects: true
+      arguments: '--configuration $(buildConfiguration) --output $(Build.ArtifactStagingDirectory)/Publish'
+      zipAfterPublish: false

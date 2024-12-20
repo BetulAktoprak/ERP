@@ -1,0 +1,76 @@
+<app-blank pageName="Examples" [routes]="['Examples']">
+    <app-section sectionTitle="Example Listesi">
+        <button class="btn btn-dark" data-toggle="modal" data-target="#createModal">
+            <i class="fa-solid fa-plus me-1"></i>
+            Example Ekle
+        </button>
+        <div class="form-group mt-2">
+           
+        </div>
+    </app-section>
+</app-blank>
+
+<!-- Create Modal -->
+<div class="modal fade" id="createModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5">Example Ekleme Formu</h1>
+                <button type="button" #createModalCloseBtn class="btn btn-outline-danger" data-dismiss="modal">
+                    <i class="fa-solid fa-x"></i>
+                </button>
+            </div>
+            <form formValidate #createForm="ngForm" autocomplete="off" (ngSubmit)="create(createForm)">
+                <div class="modal-body">
+                    <div class="form-group">
+                        <label>Alan 1</label>
+                        <input type="text" required minlength="3" [(ngModel)]="createModel.field1" class="form-control" name="field1">
+                        <div class="invalid-feedback"></div>
+                    </div>
+                    
+                    <div class="form-group mt-2">
+                        <label>Alan 2</label>
+                        <input type="text" required minlength="3" [(ngModel)]="createModel.field2" class="form-control" name="field2">
+                        <div class="invalid-feedback"></div>
+                    </div>                  
+
+                </div>
+                <div class="modal-footer">                    
+                    <button type="submit" class="btn btn-dark w-100">Kaydet</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<!-- Update Modal -->
+<div class="modal fade" id="updateModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5">Example Güncelleme Formu</h1>
+                <button type="button" #updateModalCloseBtn class="btn btn-outline-danger" data-dismiss="modal">
+                    <i class="fa-solid fa-x"></i>
+                </button>
+            </div>
+            <form formValidate #updateForm="ngForm" autocomplete="off" (ngSubmit)="update(updateForm)">
+                <div class="modal-body">
+                    <div class="form-group">
+                        <label>Alan 1</label>
+                        <input type="text" required minlength="3" [(ngModel)]="updateModel.field1" class="form-control" name="updateField1">
+                        <div class="invalid-feedback"></div>
+                    </div>                                       
+                    
+                    <div class="form-group">
+                        <label>Alan 2</label>
+                        <input type="text" required minlength="3" [(ngModel)]="updateModel.field2" class="form-control" name="updateField2">
+                        <div class="invalid-feedback"></div>
+                    </div>  
+                </div>
+                <div class="modal-footer">                    
+                    <button type="submit" class="btn btn-primary w-100">Güncelle</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

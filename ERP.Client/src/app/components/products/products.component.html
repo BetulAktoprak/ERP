@@ -1,0 +1,119 @@
+<app-blank pageName="Ürünler" [routes]="['Ana Sayfa','Ürünler']">
+    <app-section sectionTitle="Ürün Listesi">               
+        <div class="form-group mt-2">
+           <flexi-grid
+           [data]="data()"
+           [pageable]="true"
+           [sortable]="true"
+           [filterable]="true"
+           [showIndex]="true"
+           [showCaption]="true"
+           [pageSize]="10"
+           captionTitle="Ürün listesi"
+           indexWidth="3%"
+           [loading]="loading()"           
+           [captionTemplate]="captionTemplate"
+           >
+           <ng-template #captionTemplate>
+            <flexi-button btnColor="dark" data-toggle="modal" data-target="#createModal">
+                <i class="fa-solid fa-plus me-1"></i>
+                Ürün Ekle
+            </flexi-button>
+            <flexi-button (click)="getAll()">
+                <i class="fa-solid fa-rotate"></i>
+            </flexi-button>
+           </ng-template>
+           <flexi-grid-column field="name" title="Ürün Adı" width="20%"></flexi-grid-column>
+           <flexi-grid-column field="typeName" title="Ürün Tipi" width="10%"></flexi-grid-column>
+           <flexi-grid-column field="createAt" title="Oluşturulma Tarihi" filterType="date-time" format="dd MMMM yyyy HH:mm" width="15%"></flexi-grid-column>
+           <flexi-grid-column field="updateAt" title="Güncelleme Tarihi" filterType="date-time" format="dd MMMM yyyy HH:mm" width="15%"></flexi-grid-column>
+           <flexi-grid-column title="İşlemler" width="8%" textAlign="center">
+                <ng-template flexiGridCellTemplate let-item>
+                    <flexi-button 
+                        btnColor="warning" 
+                        class="me-1" 
+                        routerLink="/products/details/{{item.id}}">
+                        <i class="fa-brands fa-searchengin"></i>
+                    </flexi-button>
+                    <flexi-button btnColor="primary" class="me-1" (click)="get(item)" data-toggle="modal" data-target="#updateModal">
+                        <i class="fa-solid fa-edit"></i>
+                    </flexi-button>
+                    <flexi-button btnColor="danger" (click)="deleteById(item)">
+                        <i class="fa-solid fa-trash"></i>
+                    </flexi-button>
+                </ng-template>
+           </flexi-grid-column>
+           </flexi-grid>
+        </div>
+    </app-section>
+</app-blank>
+
+<!-- Create Modal -->
+<div class="modal fade" id="createModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5">Ürün Ekleme Formu</h1>
+                <button type="button" #createModalCloseBtn class="btn btn-outline-danger" data-dismiss="modal">
+                    <i class="fa-solid fa-x"></i>
+                </button>
+            </div>
+            <form formValidate #createForm="ngForm" autocomplete="off" (ngSubmit)="create(createForm)">
+                <div class="modal-body">
+                    <div class="form-group">
+                        <label>Ürün Adı</label>
+                        <input type="text" required minlength="3" [(ngModel)]="createModel().name" class="form-control" name="name">
+                        <div class="invalid-feedback"></div>
+                    </div>
+                    
+                    <div class="form-group mt-2">
+                        <label>Ürün Tipi</label>
+                        <select class="form-control" name="type" [(ngModel)]="createModel().typeValue">
+                            <option [value]="1">Yarı Mamül</option>
+                            <option [value]="2">Mamül</option>
+                        </select>
+                        <div class="invalid-feedback"></div>
+                    </div>
+                </div>
+                <div class="modal-footer">                    
+                    <button type="submit" class="btn btn-dark w-100">Kaydet</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<!-- Update Modal -->
+<div class="modal fade" id="updateModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5">Ürün Güncelleme Formu</h1>
+                <button type="button" #updateModalCloseBtn class="btn btn-outline-danger" data-dismiss="modal">
+                    <i class="fa-solid fa-x"></i>
+                </button>
+            </div>
+            <form formValidate #updateForm="ngForm" autocomplete="off" (ngSubmit)="update(updateForm)">
+                <div class="modal-body">
+                    <div class="form-group">
+                        <label>Ürün Adı</label>
+                        <input type="text" required minlength="3" [(ngModel)]="updateModel().name" class="form-control" name="updateName">
+                        <div class="invalid-feedback"></div>
+                    </div>
+                    
+                    <div class="form-group mt-2">
+                        <label>Ürün Tipi</label>
+                        <select class="form-control" name="updateType" [(ngModel)]="updateModel().typeValue">
+                            <option [value]="1">Yarı Mamül</option>
+                            <option [value]="2">Mamül</option>
+                        </select>
+                        <div class="invalid-feedback"></div>
+                    </div>
+                </div>
+                <div class="modal-footer">                    
+                    <button type="submit" class="btn btn-primary w-100">Güncelle</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

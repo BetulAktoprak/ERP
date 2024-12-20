@@ -1,0 +1,73 @@
+<app-blank pageName="Reçeteler" [routes]="['Ana Sayfa','Reçeteler']">
+    <app-section sectionTitle="Reçete Listesi">               
+        <div class="form-group mt-2">
+           <flexi-grid
+           [data]="data()"
+           [pageable]="true"
+           [sortable]="true"
+           [filterable]="true"
+           [showIndex]="true"
+           [showCaption]="true"
+           [pageSize]="10"
+           fontSize="17px"
+           captionTitle="Reçete listesi"
+           indexWidth="3%"
+           [loading]="loading()"           
+           [captionTemplate]="captionTemplate"
+           >
+           <ng-template #captionTemplate>
+            <button class="btn btn-dark" data-toggle="modal" data-target="#createModal">
+                <i class="fa-solid fa-plus me-1"></i>
+                Reçete Ekle
+            </button>
+            <button class="btn btn-default" (click)="getAll()">
+                <i class="fa-solid fa-rotate"></i>
+            </button>
+           </ng-template>
+           <flexi-grid-column field="productName" title="Ürün Adı" width="40%"></flexi-grid-column>
+           <flexi-grid-column field="createAt" title="Oluşturulma Tarihi" filterType="date-time" format="dd MMMM yyyy HH:mm" width="15%"></flexi-grid-column>          
+           <flexi-grid-column title="İşlemler" width="5%" textAlign="center">
+                <ng-template flexiGridCellTemplate let-item>
+                    <flexi-button btnColor="primary" routerLink="/prescriptions/details/{{item.id}}">
+                        <i class="fa-solid fa-eye"></i>
+                    </flexi-button>
+                    <button class="btn-new" (click)="deleteById(item)">
+                        <i class="fa-solid fa-trash"></i>
+                    </button>
+                </ng-template>
+           </flexi-grid-column>
+           </flexi-grid>
+        </div>
+    </app-section>
+</app-blank>
+
+<!-- Create Modal -->
+<div class="modal fade" id="createModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5">Reçete Ekleme Formu</h1>
+                <button type="button" #createModalCloseBtn class="btn btn-outline-danger" data-dismiss="modal">
+                    <i class="fa-solid fa-x"></i>
+                </button>
+            </div>
+            <form formValidate #createForm="ngForm" autocomplete="off" (ngSubmit)="create(createForm)">
+                <div class="modal-body">
+                    <div class="form-group">
+                        <label>Ürün Adı</label>
+                        <flexi-select
+                        [data]="products()"
+                        label="name"
+                        value="id"
+                        name="productId"
+                        [(ngModel)]="createModel().productId"
+                        ></flexi-select>
+                    </div>
+                </div>
+                <div class="modal-footer">                    
+                    <button type="submit" class="btn btn-dark w-100">Kaydet</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,11 @@
+<div style="height: 98vh; width: 98vw; display: flex; justify-content: center; align-items: center;">
+    <div class="card" style="padding: 50px;">
+        <div class="card-body">
+            @if(loading()){
+                <h1>İşlem yapılıyor. Lütfen bekleyiniz...</h1>
+            }@else {
+                <h1>{{message()}}</h1>
+            }
+        </div>
+    </div>
+</div>

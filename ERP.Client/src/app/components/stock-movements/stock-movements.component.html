@@ -1,0 +1,22 @@
+<app-blank pageName="Stok Hareketleri" [routes]="['Ana Sayfa','Ürünler','Stok Hareketleri']">
+    <app-section>
+       <flexi-grid
+          [data]="data()"
+          [filterable]="true"
+          [showIndex]="true"
+          [showCaption]="true"
+          [pageSize]="10"
+          [showIndex]="true"
+          captionTitle="Stok Hareketleri"
+          [loading]="loading()"
+          [showRefreshBtn]="true"
+          (refreshBtnClick)="getAll()"
+          indexWidth="7%">
+          <flexi-grid-column field="date" title="Tarih" width="10%"></flexi-grid-column>
+          <flexi-grid-column field="typeName" title="Tip" width="10%"></flexi-grid-column>
+          <flexi-grid-column field="giris" title="Giriş" width="10%"></flexi-grid-column>
+          <flexi-grid-column field="cikis" title="Çıkış" width="10%"></flexi-grid-column>
+          <flexi-grid-column field="bakiye" title="Bakiye" width="10%"></flexi-grid-column>
+        </flexi-grid>
+    </app-section>
+</app-blank>
